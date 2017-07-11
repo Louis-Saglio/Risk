@@ -1,8 +1,3 @@
-from pprint import pprint
-from data_content import TERRITOIRES, CONTINENTS
-from sample.plateau import Continent, Territoire
-
-
 class Iterateur:
 
     def __init__(self):
@@ -44,11 +39,3 @@ def create_objects_from_data(data, klass: type):
     for dico in dump_data(data):
         rep.append(klass(**dico))
     return rep
-
-
-# pprint(serialize(CONTINENTS))
-# pprint(serialize(TERRITOIRES))
-# pprint(dump_data(CONTINENTS))
-pprint(dump_data(TERRITOIRES))
-pprint([cont for cont in create_objects_from_data(CONTINENTS, Continent)])
-pprint([cont for cont in create_objects_from_data(TERRITOIRES, Territoire)])

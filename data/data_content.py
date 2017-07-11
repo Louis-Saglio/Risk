@@ -1,7 +1,7 @@
 from sample.plateau import Plateau
 
-plt = Plateau()
 
+plt = Plateau()
 
 CONTINENTS = {
     "plateau": (
@@ -13,14 +13,16 @@ CONTINENTS = {
         ("Océanie", 2),
         ("Afrique", 3),
         ("Amériques-du-Sud", 2),
-        # ("Asie", 7),
+        ("Asie", 7),
     )
 }
 
 
 TERRITOIRES = {
         "plateau": {
-            "continent": (("nom", "icone"),)
+            "continent": (
+                ("nom", "icone"),
+            )
         },
         plt: {
             "Asie": (
@@ -34,8 +36,3 @@ TERRITOIRES = {
             )
         }
 }
-# >>> [{"continent": "Asie", "nom": "Oural", "type": "canon"},
-#      {"continent": "Asie", "nom": "Chine", "type": "cavalier"}]
-
-
-
