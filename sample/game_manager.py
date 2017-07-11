@@ -1,4 +1,4 @@
-from plateau import Plateau
+from sample.plateau import Plateau
 
 
 class GameManager:

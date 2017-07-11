@@ -1,5 +1,6 @@
 from unittest import TestCase
-from armee import *
+
+from sample.armee import *
 
 
 # noinspection PyShadowingNames
