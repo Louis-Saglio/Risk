@@ -4,6 +4,16 @@ class Iterateur:
         self.prefix = []
         self.rep = []
 
+    def flattern(self, data, rep=None):
+        if rep is None:
+            rep = []
+        for i in data:
+            if hasattr(i, '__iter__') and not isinstance(i, str):
+                self.flattern(i, rep)
+            else:
+                rep.append(i)
+        return tuple(rep)
+
     def iter_dico(self, dico: dict):
         for key, d in dico.items():
             self.prefix.append(key)
@@ -15,6 +25,8 @@ class Iterateur:
                 self.prefix.pop(-1)
         if self.prefix:
             self.prefix.pop(-1)
+        for i in range(len(self.rep)):
+            self.rep[i] = self.flattern(self.rep[i])
         return self.rep
 
 
@@ -30,7 +42,8 @@ def dump_data(data):
     for a in data[1::]:
         rep.append({})
         for i in range(len(a)):
-            rep[-1][data[0][i]] = a[i]
+            key = data[0][i]
+            rep[-1][key] = a[i]
     return rep
 
 

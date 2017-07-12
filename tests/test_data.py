@@ -55,19 +55,38 @@ TERRITOIRES = {
 }
 
 
+TERRITOIRES1 = {
+    ("plateau", "icone1"): {
+        "continent": (
+            ("nom", "icone"),
+        )
+    },
+    ("plt", "icone11"): {
+        "Asie": (
+            ("Oural", "canon"),
+            ("Chine", "cavalier"),
+            ("Sibérie", "fantassin"),
+        ),
+        "Europe": (
+            ("Islande", "canon"),
+            ("Ukraine", "cavalier"),
+        )
+    }
+}
+
+
 class TestData(unittest.TestCase):
 
     def test_serialize(self):
         data = serialize(CONTINENTS)
         self.assertEqual(data[0], ('plateau', 'nom', 'renforts'))
-        data = serialize(CONTINENTS)
-        serialized = [('plateau', 'nom', 'renforts'),
-                      ('plt', 'Europe', 5),
-                      ('plt', 'Amérique-du-Nord', 5),
-                      ('plt', 'Océanie', 2),
-                      ('plt', 'Afrique', 3),
-                      ('plt', 'Amériques-du-Sud', 2),
-                      ('plt', 'Asie', 7)]
+        data = serialize(TERRITOIRES1)
+        serialized = [('plateau', 'icone1', 'continent', 'nom', 'icone'),
+                      ('plt', 'icone11', 'Asie', 'Oural', 'canon'),
+                      ('plt', 'icone11', 'Asie', 'Chine', 'cavalier'),
+                      ('plt', 'icone11', 'Asie', 'Sibérie', 'fantassin'),
+                      ('plt', 'icone11', 'Europe', 'Islande', 'canon'),
+                      ('plt', 'icone11', 'Europe', 'Ukraine', 'cavalier')]
         self.assertEqual(data, serialized)
 
     def test_dump_data(self):
