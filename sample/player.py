@@ -1,5 +1,9 @@
-class Player:
+from armee import Armee
 
-    def __init__(self, nom):
-        self.nom = nom
-        self.territoires = []
+
+class Player:
+    """
+    Contient les actions possible pour un joueur
+    Ne doit pas contenir de prise de décision (AI)
+    """
+    pass

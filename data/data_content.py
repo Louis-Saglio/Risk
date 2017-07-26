@@ -18,19 +18,33 @@ CONTINENTS = {
 
 TERRITOIRES = {
     "plateau": {
-        "continent": (
-            ("nom", "icone"),
-        )
+        "continent": {
+            "icone": (
+                ("nom",),
+            )
+        }
     },
     plt: {
-        "Asie": (
-            ("Oural", "canon"),
-            ("Chine", "cavalier"),
-            ("Sibérie", "fantassin"),
-        ),
-        "Europe": (
-            ("Islande", "canon"),
-            ("Ukraine", "cavalier"),
-        )
+        "Asie": {
+            "fantassin": (
+                ("Oural",),
+                ("Chine",),
+            )
+        },
+        "Europe": {
+            "fantassin": (
+                ("Islande",),
+                ("Ukraine",),
+            ),
+            "cavalier": (
+                ("Scandinavie",),
+                ("Europe-du-Sud",),
+                ("Grande-Bretagne",),
+            ),
+            "canon": (
+                ("Europe-Occidentale",),
+                ("Europe-du-Nord",),
+            )
+        }
     }
 }
