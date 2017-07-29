@@ -2,7 +2,9 @@ import unittest
 from pprint import pprint
 
 from data.data_reader import serialize, dump_data, create_objects_from_data
-from plateau import Territoire, Plateau, Continent
+from plateau import Plateau
+from continent import Continent
+from territoire import Territoire
 
 plt = Plateau()
 

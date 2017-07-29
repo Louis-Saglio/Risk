@@ -1,6 +1,7 @@
 from unittest import TestCase
 from plateau import Plateau
-from sample.plateau import Territoire, Continent
+from continent import Continent
+from territoire import Territoire
 
 
 class TestTerritoire(TestCase):

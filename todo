@@ -1,0 +1,9 @@
+Préparer le jeu:
+    Créer un plateau de jeu jouable
+        Générer les classes avec data
+    Créer des joueurs avec tous leurs attributs
+        Créer des data pour les joueurs
+        Générer les classes correspondantes
+    Créer une classe GameManager contenant tous les objets d'une partie
+    Distribuer les pays
+        Méthode de GamaManager
