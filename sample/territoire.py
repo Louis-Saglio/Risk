@@ -13,16 +13,16 @@ class Territoire:
         self.proprietaire = None
         self.nbr_unitees = 0
         self.voisins = ()
-        self.check_attr()
-
-    def check_attr(self):
-        if not isinstance(self.continent, Continent):
-            raise PlateauError(f"{self.continent}, {type(self.continent)}")
+    #     self.check_attr()
+    #
+    # def check_attr(self):
+    #     if not isinstance(self.continent, Continent):
+    #         raise PlateauError(f"{self.continent}, {type(self.continent)}, {Continent}")
 
     def find_continent_by_name(self, name):
         if isinstance(name, Continent):
             return name
-        for cont in self.plateau.continents:
+        for cont in self.plateau.continent:
             if cont.nom == name:
                 return cont
         raise PlateauError(f"Aucun continent '{name}' trouvé dans le plateau {self.plateau}\n"
@@ -34,3 +34,9 @@ class Territoire:
         """
         self.voisins += other,
         other.voisins += self,
+
+    def __str__(self):
+        return str(self.__dict__)
+
+    def __repr__(self):
+        return self.__str__()

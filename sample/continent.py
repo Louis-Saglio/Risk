@@ -5,4 +5,11 @@ class Continent:
         self.territoires = territoires
         self.renforts = renforts
         self.plateau = plateau
-        self.plateau.continents += self,
+        self.plateau.continent += self,
+
+    def __str__(self):
+        # return f"{self.nom} {id(self.plateau)}"
+        return str(self.__dict__)
+
+    def __repr__(self):
+        return self.__str__()
