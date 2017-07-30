@@ -1,80 +1,8 @@
 import unittest
-from pprint import pprint
-
 from data.data_reader import serialize, dump_data, create_objects_from_data
-from plateau import Plateau
 from continent import Continent
 from territoire import Territoire
-
-plt = Plateau()
-
-CONTINENTS = {
-    "plateau": (
-        ("nom", "renforts"),
-    ),
-    "plt": (
-        ("Europe", 5),
-        ("Amérique-du-Nord", 5),
-        ("Océanie", 2),
-        ("Afrique", 3),
-        ("Amériques-du-Sud", 2),
-        ("Asie", 7),
-    )
-}
-
-
-CONTINENTS1 = {
-    "plateau": (
-        ("nom", "renforts"),
-    ),
-    plt: (
-        ("Amérique-du-Nord", 5),
-        ("Océanie", 2),
-        ("Afrique", 3),
-        ("Amériques-du-Sud", 2),
-        ("Asie", 7),
-    )
-}
-
-europe = Continent("Europe", 5, plt)
-TERRITOIRES = {
-        "plateau": {
-            "continent": (
-                ("nom", "icone"),
-            )
-        },
-        plt: {
-            "Asie": (
-                ("Oural", "canon"),
-                ("Chine", "cavalier"),
-                ("Sibérie", "fantassin"),
-            ),
-            europe: (
-                ("Islande", "canon"),
-                ("Ukraine", "cavalier"),
-            )
-        }
-}
-
-
-TERRITOIRES1 = {
-    ("plateau", "icone1"): {
-        "continent": (
-            ("nom", "icone"),
-        )
-    },
-    ("plt", "icone11"): {
-        "Asie": (
-            ("Oural", "canon"),
-            ("Chine", "cavalier"),
-            ("Sibérie", "fantassin"),
-        ),
-        "Europe": (
-            ("Islande", "canon"),
-            ("Ukraine", "cavalier"),
-        )
-    }
-}
+from data_for_tests import *
 
 
 class TestData(unittest.TestCase):
@@ -104,7 +32,7 @@ class TestData(unittest.TestCase):
     def test_create_object_from_data(self):
         create_objects_from_data(CONTINENTS1, Continent)
         objects = create_objects_from_data(TERRITOIRES, Territoire)
-        created = {'plateau': plt,
+        created = {'plateau': PLATEAU,
                    'nom': 'Ukraine',
                    'icone': 'cavalier',
                    'continent': europe,
