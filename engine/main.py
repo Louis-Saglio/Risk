@@ -1,11 +1,10 @@
-from os import chdir
-chdir("/home/louis/Projects/Risk")
+from pprint import pprint
+import game_manager as gm
 
+manager = gm.GameManager()
 
-import data_content as data
-from data_reader import create_objects_from_data
-from continent import Continent
-from territoire import Territoire
+manager.create_elements("plateau", False, "new")
+manager.create_elements("continent", True, manager.plateaux[0])
+manager.create_elements("territoire", True, manager.plateaux[0])
 
-CONTINENTS = create_objects_from_data(data.CONTINENTS, Continent)
-TERRITOIRES = create_objects_from_data(data.TERRITOIRE, Territoire)
+pprint(manager.plateaux[0].__dict__)
