@@ -1,5 +1,10 @@
 from plateau import PlateauError
 from continent import Continent
+import armee
+
+
+class TerritoireError(BaseException):
+    pass
 
 
 class Territoire:
@@ -11,8 +16,9 @@ class Territoire:
         self.continent = self.find_continent_by_name(continent)
         self.continent.territoires += self,
         self.proprietaire = None
-        self.nbr_unitees = 0
+        self.nbr_unites = 0
         self.voisins = ()
+        self.armee = None
     #     self.check_attr()
     #
     # def check_attr(self):
@@ -34,6 +40,12 @@ class Territoire:
         """
         self.voisins += other,
         other.voisins += self,
+
+    def former_armee(self, nbr) -> armee.Armee:
+        if nbr > self.nbr_unites:
+            raise TerritoireError
+        self.armee = armee.Armee(nbr)
+        return self.armee
 
     def __str__(self):
         return str(self.__dict__)
