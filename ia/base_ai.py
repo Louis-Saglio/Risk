@@ -1,3 +1,6 @@
+from territoire import Territoire
+
+
 class AI:
     """
     Contient l'interface de base pour les AI
@@ -9,8 +12,11 @@ class AI:
         """
         self.player = player
 
-    def choisir_cible(self):
+    def placer_unite(self) -> Territoire:
         raise NotImplementedError
 
-    def effectuer_transfert(self):
+    def choisir_nbr_attaquants(self) -> int:
+        raise NotImplementedError
+
+    def choisir_cible(self) -> Territoire:
         raise NotImplementedError
