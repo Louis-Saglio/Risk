@@ -1,5 +1,7 @@
 from territoire import Territoire
 
+# TODO: test validiter custom ai (check_rules_conformity)
+# TODO: gestion des regles fin des combat par manque d'effectif dans ia ?
 
 class AI:
     """
@@ -12,11 +14,20 @@ class AI:
         """
         self.player = player
 
-    def placer_unite(self) -> Territoire:
+    def choose_card_set(self) -> tuple:
         raise NotImplementedError
 
-    def choisir_nbr_attaquants(self) -> int:
+    def choose_reinforcements_placement(self, reinforcements_number: int) -> dict:
         raise NotImplementedError
 
-    def choisir_cible(self) -> Territoire:
+    def choose_attacker_number(self, attacker: Territoire, defender: Territoire) -> int:
+        raise NotImplementedError
+
+    def choose_target(self) -> dict:
+        raise NotImplementedError
+
+    def choose_continue_attack(self, attacker: Territoire, defender: Territoire) -> bool:
+        raise NotImplementedError
+
+    def choose_dice_number(self) -> int:
         raise NotImplementedError

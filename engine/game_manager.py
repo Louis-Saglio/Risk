@@ -23,7 +23,7 @@ class GameManager:
             elements = create_objects_from_data(data, klass)
         else:
             elements = data
-        if plateau not in ("new",):
+        if plateau not in ("new", None):
             plateau.__dict__[element.lower()] = elements
         elif plateau == "new":
             self.plateaux.append(elements)

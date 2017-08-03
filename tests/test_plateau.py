@@ -14,7 +14,3 @@ class TestTerritoire(TestCase):
         t2 = Territoire("Oural", plt, asie, "cav")
         t1.link_with(t2)
         assert t1 in t2.voisins
-
-
-class TestContinent(TestCase):
-    pass

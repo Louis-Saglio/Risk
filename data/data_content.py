@@ -48,3 +48,11 @@ TERRITOIRE = {
         }
     }
 }
+
+
+CARD_SETS = {
+    ("canon", "cavalier", "fantassin"): 10,
+    ("canon", "canon", "canon"): 8,
+    ("cavalier", "cavalier", "cavalier"): 6,
+    ("fantassin", "fantassin", "fantassin"): 4
+}

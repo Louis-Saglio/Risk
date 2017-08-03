@@ -37,8 +37,9 @@ class TestData(unittest.TestCase):
                    'icone': 'cavalier',
                    'continent': europe,
                    'proprietaire': None,
-                   'nbr_unitees': 0,
-                   'voisins': ()}
+                   'nbr_unites': 0,
+                   'voisins': (),
+                   'armee': None}
         self.assertEqual(objects[4].__dict__, created)
 
 if __name__ == '__main__':
