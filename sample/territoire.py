@@ -1,8 +1,6 @@
-from plateau import PlateauError
-import continent
-import armee
-import sample
-import sample.player
+import sample.armee
+import sample.plateau
+import sample.continent
 
 
 class TerritoireError(BaseException):
@@ -10,7 +8,6 @@ class TerritoireError(BaseException):
 
 
 class Territoire:
-
     def __init__(self, nom, plateau, continent, icone):
         self.plateau = plateau
         self.nom = nom
@@ -25,7 +22,7 @@ class Territoire:
 
     def check_attr(self):
         if not isinstance(self.continent, sample.continent.Continent):
-            raise PlateauError(f"{self.continent}, {type(self.continent)}, {continent.Continent}")
+            raise sample.plateau.PlateauError(f"{self.continent}, {type(self.continent)}, {sample.continent.Continent}")
 
     def find_continent_by_name(self, name):
         if isinstance(name, sample.continent.Continent):
@@ -33,8 +30,8 @@ class Territoire:
         for cont in self.plateau.continent:
             if cont.nom == name:
                 return cont
-        raise PlateauError(f"Aucun continent '{name}' trouvé dans le plateau {self.plateau}\n"
-                           f"Nom(s) disponibles : {[plt.nom for plt in self.plateau.continent]}")
+        raise sample.plateau.PlateauError(f"Aucun continent '{name}' trouvé dans le plateau {self.plateau}\n"
+                                          f"Nom(s) disponibles : {[plt.nom for plt in self.plateau.continent]}")
 
     def link_with(self, other):
         """
@@ -43,7 +40,7 @@ class Territoire:
         self.voisins += other,
         other.voisins += self,
 
-    def former_armee(self, nbr=None) -> armee.Armee:
+    def former_armee(self, nbr=None) -> sample.armee.Armee:
         if nbr is None:
             nbr = self.nbr_unites
         elif nbr > self.nbr_unites:

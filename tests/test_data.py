@@ -1,7 +1,7 @@
 import unittest
 from data.data_reader import serialize, dump_data, create_objects_from_data
-from continent import Continent
-from territoire import Territoire
+import sample.continent
+import sample.territoire
 from data_for_tests import *
 
 
@@ -30,8 +30,8 @@ class TestData(unittest.TestCase):
         self.assertEqual(data, dumped)
 
     def test_create_object_from_data(self):
-        create_objects_from_data(CONTINENTS1, Continent)
-        objects = create_objects_from_data(TERRITOIRES, Territoire)
+        create_objects_from_data(CONTINENTS1, sample.continent.Continent)
+        objects = create_objects_from_data(TERRITOIRES, sample.territoire.Territoire)
         created = {'plateau': PLATEAU,
                    'nom': 'Ukraine',
                    'icone': 'cavalier',

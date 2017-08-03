@@ -1,6 +1,3 @@
-import sample.territoire
-
-
 class Continent:
 
     def __init__(self, nom, renforts: int, plateau, territoires: tuple=()):

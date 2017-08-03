@@ -1,12 +1,6 @@
 import ia.randomAI
 import data
 import sample.territoire
-import sample.armee
-import sample.plateau
-
-print(sample.plateau)
-print(sample.continent)
-print(sample.armee)
 
 
 class PlayerError(BaseException):

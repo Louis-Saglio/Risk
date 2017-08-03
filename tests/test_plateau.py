@@ -1,15 +1,15 @@
 from unittest import TestCase
-from plateau import Plateau
-from continent import Continent
+import sample.plateau
+import sample.continent
 from territoire import Territoire
 
 
 class TestTerritoire(TestCase):
 
     def test_link_with(self):
-        plt = Plateau()
-        europe = Continent("Europe", 5, plt)
-        asie = Continent("Asie", 7, plt)
+        plt = sample.plateau.Plateau()
+        europe = sample.continent.Continent("Europe", 5, plt)
+        asie = sample.continent.Continent("Asie", 7, plt)
         t1 = Territoire("Ukraine", plt, europe, "cav")
         t2 = Territoire("Oural", plt, asie, "cav")
         t1.link_with(t2)

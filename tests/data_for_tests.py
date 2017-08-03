@@ -1,7 +1,7 @@
-from continent import Continent
-from plateau import Plateau
+import sample.continent
+import sample.plateau
 
-PLATEAU = Plateau()
+PLATEAU = sample.plateau.Plateau()
 
 CONTINENTS = {
     "plateau": (
@@ -31,7 +31,7 @@ CONTINENTS1 = {
     )
 }
 
-europe = Continent("Europe", 5, PLATEAU)
+europe = sample.continent.Continent("Europe", 5, PLATEAU)
 TERRITOIRES = {
         "plateau": {
             "continent": (
