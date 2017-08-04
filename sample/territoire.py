@@ -8,7 +8,9 @@ class TerritoireError(BaseException):
 
 
 class Territoire:
+
     def __init__(self, nom, plateau, continent, icone):
+        # TODO: changer les tuples en list
         self.plateau = plateau
         self.nom = nom
         self.icone = icone
@@ -35,7 +37,7 @@ class Territoire:
 
     def link_with(self, other):
         """
-        :type other Territoire
+        :type other: Territoire
         """
         self.voisins += other,
         other.voisins += self,
@@ -45,8 +47,14 @@ class Territoire:
             nbr = self.nbr_unites
         elif nbr > self.nbr_unites:
             raise TerritoireError
-        self.armee = armee.Armee(nbr)
+        self.armee = sample.armee.Armee(nbr)
         return self.armee
+
+    def change_owner(self, new_owner):
+        if self.proprietaire is not None:
+            self.proprietaire.territoires.remove(self)
+        self.proprietaire = new_owner
+        new_owner.territoires.append(self)
 
     def __str__(self):
         return str(self.__dict__)

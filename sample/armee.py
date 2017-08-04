@@ -53,6 +53,7 @@ class Armee:
                 raise ArmyError(f"{self.__dict__}{self.ennemi.des}")
         else:
             raise NotImplementedError(f"Rôle non géré : {self._role}")
+        return self._nbr_des
 
     def lancer_des(self):
         self._des = [random.randint(1, 6) for _ in range(self._nbr_des)]

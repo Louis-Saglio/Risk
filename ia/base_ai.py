@@ -1,4 +1,4 @@
-from territoire import Territoire
+import sample.territoire as trt
 
 # TODO: test validiter custom ai (check_rules_conformity)
 # TODO: gestion des regles fin des combat par manque d'effectif dans ia ?
@@ -20,14 +20,14 @@ class AI:
     def choose_reinforcements_placement(self, reinforcements_number: int) -> dict:
         raise NotImplementedError
 
-    def choose_attacker_number(self, attacker: Territoire, defender: Territoire) -> int:
+    def choose_attacker_number(self, attacker: trt.Territoire, defender: trt.Territoire) -> int:
         raise NotImplementedError
 
     def choose_target(self) -> dict:
         raise NotImplementedError
 
-    def choose_continue_attack(self, attacker: Territoire, defender: Territoire) -> bool:
+    def choose_continue_attack(self, attacker: trt.Territoire, defender: trt.Territoire) -> bool:
         raise NotImplementedError
 
-    def choose_dice_number(self) -> int:
+    def choose_dice_number(self, attacker: trt.Territoire, defender: trt.Territoire, role: str) -> int:
         raise NotImplementedError
