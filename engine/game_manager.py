@@ -28,3 +28,6 @@ class GameManager:
         elif plateau == "new":
             self.plateaux.append(elements)
         return elements
+
+    def give_a_card(self):
+        raise NotImplementedError
