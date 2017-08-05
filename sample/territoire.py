@@ -56,6 +56,14 @@ class Territoire:
         self.proprietaire = new_owner
         new_owner.territoires.append(self)
 
+    def transfer_troops_to(self, to, nbr: int):
+        """
+        :param nbr:
+        :type to: Territoire
+        """
+        self.nbr_unites -= nbr
+        to.nbr_unites += nbr
+
     def __str__(self):
         return str(self.__dict__)
 
