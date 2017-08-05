@@ -31,6 +31,7 @@ class Armee:
         self._nbr_morts = None
         self._nbr_des = None
         self._statut = None
+        self.territoire = None
 
     @property
     def statut(self):
@@ -110,6 +111,9 @@ class Armee:
         self.manage_statut()
         self.ennemi.manage_statut()
 
+    def check_if_continue_attack(self, **kwargs):
+        return True
+
     def envahir(self, ennemi=None, afficher=False):
         self.initialise_attaque(ennemi)
         i = 0
@@ -121,9 +125,9 @@ class Armee:
                     self.afficher_avancement()
                     self.ennemi.afficher_avancement()
             i += 1
-        if self._statut is GAGNANT:
-            return self
-        return self.ennemi
+            if not self.check_if_continue_attack(attacker=self, defender=ennemi):
+                break
+        return {self._statut: self, ennemi._statut: ennemi}
 
     def afficher_avancement(self):
         pct = int((self.nbr * 100) / self.nbr_initial)
@@ -138,5 +142,5 @@ if __name__ == '__main__':
     debut = time()
     gagnant = a.envahir(b, True)
     fin = time()
-    pprint(gagnant.__dict__)
+    pprint(gagnant["Gagnant"].__dict__)
     print(round(fin - debut, 3), "secondes")
