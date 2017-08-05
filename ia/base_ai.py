@@ -1,4 +1,5 @@
 import sample.territoire as trt
+import sample.armee as arm
 
 # TODO: test validiter custom ai (check_rules_conformity)
 # TODO: gestion des regles fin des combat par manque d'effectif dans ia ?
@@ -20,7 +21,7 @@ class AI:
     def choose_reinforcements_placement(self, reinforcements_number: int) -> dict:
         raise NotImplementedError
 
-    def choose_attacker_number(self, attacker: trt.Territoire, defender: trt.Territoire) -> int:
+    def choose_attacker_number(self, attacker: arm.Armee, defender: arm.Armee) -> int:
         raise NotImplementedError
 
     def choose_target(self) -> dict:
