@@ -46,12 +46,19 @@ class TestPlayer(TestCase):
         data = create_player()
         player1 = data["player"]
         player2 = data["player2"]
+        player1.nom = "louis"
+        player2.nom = "autre"
         data["a"].change_owner(player1)
         data["b"].change_owner(player2)
         data["a"].nbr_unites = 70
         data["b"].nbr_unites = 2
         player1._attack_one_target(data["a"], data["b"])
-        self.assertIs(player1, data["b"].proprietaire)
+        pprint(player1.__dict__)
+        pprint(data["b"].proprietaire.__dict__)
+        try:
+            self.assertIs(player1, data["b"].proprietaire)
+        except AssertionError:
+            self.assertEqual(data["a"].nbr_unites, 1)
 
     def test_manage_attacks(self):
         pass
