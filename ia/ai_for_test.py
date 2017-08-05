@@ -2,12 +2,13 @@ import ia.base_ai
 import data.data_content
 import random
 import sample.territoire as trt
+import sample.armee as arm
 
 
 class IaForTest(ia.base_ai.AI):
 
-    def choose_continue_attack(self, attacker: trt.Territoire, defender: trt.Territoire) -> bool:
-        if defender.proprietaire is self.player:
+    def choose_continue_attack(self, attacker: arm.Armee, defender: arm.Armee) -> bool:
+        if defender.territoire.proprietaire is self.player:
             return False
         return True
 
@@ -17,7 +18,7 @@ class IaForTest(ia.base_ai.AI):
     def choose_target(self) -> dict:
         for territoire in self.player.territoires:
             for voisin in territoire.voisins:
-                if voisin.proprietaire is not self.player:
+                if voisin.proprietaire is not self.player and voisin.nbr_unites > 1:
                     return {"attacker": territoire, "defender": voisin}
 
     def choose_attacker_number(self, attacker: trt.Territoire, defender: trt.Territoire):
