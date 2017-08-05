@@ -1,29 +1,11 @@
 import ia.randomAI
 import data
-import sample.territoire
+import sample.territoire as trt
+import sample.armee as arm
 import random
+import engine.game_manager as gm
+from armee import PERDANT
 
-
-def roll_dice(nbr: int) -> list:
-    # TODO: nbr des dans settings
-    dice = [random.randint(1, 6) for _ in range(nbr)]
-    dice.sort(reverse=True)
-    return dice
-
-def compare_dice(attacker_dice: list, defender_dice: list):
-    nbr_dead = {"attacker": 0, "defender": 0}
-    for attacker_die, defender_die in zip(attacker_dice, defender_dice):
-        if attacker_die > defender_die:
-            nbr_dead["defender"] += 1
-        else:
-            nbr_dead["attacker"] += 1
-    return nbr_dead
-
-def get_attack_winner(attacker: sample.territoire.Territoire, defender: sample.territoire.Territoire):
-    if attacker.nbr_unites == 1:
-        return defender
-    if defender.nbr_unites == 0:
-        return attacker
 
 class PlayerError(BaseException):
     pass
@@ -40,6 +22,7 @@ class Player:
         self.plateau = plateau
         self.cards = []
         self.ai = ia.randomAI.RandomAi(self)
+        self.manager = gm.GameManager()
 
     def __get_continent_reinforcements(self) -> int:
         # TODO: self.continents_possedes
@@ -64,7 +47,7 @@ class Player:
         )
         return sum(reinforcements)
 
-    def _place_reinforcements(self, unit_number):
+    def _place_reinforcements(self, unit_number: int):
         placement = self.ai.choose_reinforcements_placement(unit_number)
         for territoire, unit_number in placement.items():
             territoire.nbr_unites += unit_number
@@ -72,30 +55,36 @@ class Player:
     def manage_reinforcements(self):
         self._place_reinforcements(self._get_reinforcements_number())
 
-    def __one_round_attack(self, attacker: sample.territoire.Territoire, defender: sample.territoire.Territoire):
-        attacker_nbr_dice = self.ai.choose_dice_number(attacker, defender, "attacker")
-        defender_nbr_dice = defender.proprietaire.ai.choose_dice_number(attacker, defender, "defender")
-        attacker_dice = roll_dice(attacker_nbr_dice)
-        defender_dice = roll_dice(defender_nbr_dice)
-        nbr_dead = compare_dice(attacker_dice, defender_dice)
-        attacker.nbr_unites -= nbr_dead["attacker"]
-        defender.nbr_unites -= nbr_dead["defender"]
+    def draw_a_card(self):
+        self.cards.append(self.manager.give_a_card())
 
-    def _attack_one_target(self, attacker: sample.territoire.Territoire, defender: sample.territoire.Territoire):
-        while get_attack_winner(attacker, defender) is None:
-            self.__one_round_attack(attacker, defender)
-            if not self.ai.choose_continue_attack(attacker, defender):
-                break
-        if get_attack_winner(attacker, defender) is attacker:
+    def _attack_one_target(self, attacker: trt.Territoire, defender: trt.Territoire):
+        attacker.former_armee()
+        defender.former_armee()
+        attacker.armee.territoire = attacker
+        defender.armee.territoire = defender
+        attacker.armee.initialise_attaque(defender.armee)
+        attacker.armee.check_if_continue_attack = self.ai.choose_continue_attack
+        return attacker.armee.envahir(defender.armee)
+
+    @staticmethod
+    def _end_attack(attacker: trt.Territoire, defender: trt.Territoire):
+        attacker.nbr_unites = attacker.armee.nbr
+        defender.nbr_unites = defender.armee.nbr
+        if defender.armee.statut is PERDANT:
             defender.change_owner(attacker.proprietaire)
-            # TODO: give a card attention aux import récursifs !
+            attacker.transfer_troops_to(defender, attacker.armee._nbr_des)
 
     def manage_attacks(self):
+        nbr_trt = len(self.territoires)
         while True:
-            target_data = self.ai.choose_target()
-            if target_data is None:
+            target = self.ai.choose_target()
+            if target is None:
                 break
-            self._attack_one_target(**target_data)
+            self._attack_one_target(**target)
+            self._end_attack(**target)
+        if len(self.territoires) > 0:
+            self.draw_a_card()
 
     def play(self):
         self.manage_reinforcements()
