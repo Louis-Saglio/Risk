@@ -111,7 +111,9 @@ class Armee:
         self.manage_statut()
         self.ennemi.manage_statut()
 
-    def check_if_continue_attack(self, **kwargs):
+    def check_if_continue_attack(self, defender, attacker):
+        if self.territoire is not None:
+            return self.territoire.proprietaire.ai.choose_continue_attack(attacker, defender)
         return True
 
     def envahir(self, ennemi=None, afficher=False):
