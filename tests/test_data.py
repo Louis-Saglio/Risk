@@ -32,7 +32,7 @@ class TestData(unittest.TestCase):
     def test_create_object_from_data(self):
         create_objects_from_data(CONTINENTS1, sample.continent.Continent)
         objects = create_objects_from_data(TERRITOIRES, sample.territoire.Territoire)
-        created = {'plateau': PLATEAU,
+        created = {'manager': MANAGER,
                    'nom': 'Ukraine',
                    'icone': 'cavalier',
                    'continent': europe,
