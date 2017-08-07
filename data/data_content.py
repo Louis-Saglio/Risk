@@ -1,12 +1,12 @@
-from sample.plateau import Plateau
+import engine.game_manager
 
-PLATEAU = Plateau()
+MANAGER = engine.game_manager.GameManager()
 
 CONTINENT = {
     "plateau": (
         ("nom", "renforts"),
     ),
-    PLATEAU: (
+    MANAGER: (
         ("Europe", 5),
         ("Amérique-du-Nord", 5),
         ("Océanie", 2),
@@ -17,14 +17,14 @@ CONTINENT = {
 }
 
 TERRITOIRE = {
-    "plateau": {
+    "manager": {
         "continent": {
             "icone": (
                 ("nom",),
             )
         }
     },
-    PLATEAU: {
+    MANAGER: {
         "Asie": {
             "fantassin": (
                 ("Oural",),
