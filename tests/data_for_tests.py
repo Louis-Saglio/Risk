@@ -1,7 +1,7 @@
 import sample.continent
-import sample.plateau
+import engine.game_manager as gm
 
-PLATEAU = sample.plateau.Plateau()
+MANAGER = gm.GameManager()
 
 CONTINENTS = {
     "plateau": (
@@ -19,10 +19,10 @@ CONTINENTS = {
 
 
 CONTINENTS1 = {
-    "plateau": (
+    "manager": (
         ("nom", "renforts"),
     ),
-    PLATEAU: (
+    MANAGER: (
         ("Amérique-du-Nord", 5),
         ("Océanie", 2),
         ("Afrique", 3),
@@ -31,14 +31,14 @@ CONTINENTS1 = {
     )
 }
 
-europe = sample.continent.Continent("Europe", 5, PLATEAU)
+europe = sample.continent.Continent("Europe", 5, MANAGER)
 TERRITOIRES = {
-        "plateau": {
+        "manager": {
             "continent": (
                 ("nom", "icone"),
             )
         },
-        PLATEAU: {
+        MANAGER: {
             "Asie": (
                 ("Oural", "canon"),
                 ("Chine", "cavalier"),
