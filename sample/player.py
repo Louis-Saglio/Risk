@@ -17,20 +17,15 @@ class Player:
     Ne doit pas contenir de prise de décision (AI)
     """
 
-    def __init__(self, plateau):
+    def __init__(self, manager: gm.GameManager):
         self.territoires = []
-        self.plateau = plateau
         self.cards = []
         self.ai = ia.randomAI.RandomAi(self)
-        self.manager = gm.GameManager()
+        self.manager = manager
+        self.continents = []
 
     def __get_continent_reinforcements(self) -> int:
-        # TODO: self.continents_possedes
-        renforts = 0
-        for continent in self.plateau.continent:
-            if continent.get_master() is self:
-                renforts += continent.renforts
-        return renforts
+        return sum([continent.renforts for continent in self.continents])
 
     def __get_territory_number_reinforcements(self) -> int:
         number = len(self.territoires) // 3
@@ -83,7 +78,7 @@ class Player:
                 break
             self._attack_one_target(**target)
             self._end_attack(**target)
-        if len(self.territoires) > 0:
+        if len(self.territoires) - nbr_trt > 0:
             self.draw_a_card()
 
     def play(self):
