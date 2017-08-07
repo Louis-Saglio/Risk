@@ -1,22 +1,22 @@
 from unittest import TestCase
 import sample.player
-import sample.plateau
 import sample.territoire
 import sample.continent
 import ia.ai_for_test
 from pprint import pprint
+import engine.game_manager as gm
 
 
 def create_player():
-    plateau = sample.plateau.Plateau()
-    player = sample.player.Player(plateau)
+    manager = gm.GameManager()
+    player = sample.player.Player(manager)
     player.ai = ia.ai_for_test.IaForTest(player)
-    player2 = sample.player.Player(plateau)
+    player2 = sample.player.Player(manager)
     player2.ai = ia.ai_for_test.IaForTest(player2)
-    sample.continent.Continent("Asie", 7, plateau)
-    a = sample.territoire.Territoire("Chine", plateau, "Asie", "canon")
-    b = sample.territoire.Territoire("Oural", plateau, "Asie", "canon")
-    c = sample.territoire.Territoire("Siam", plateau, "Asie", "canon")
+    continent = sample.continent.Continent("Asie", 7, manager)
+    a = sample.territoire.Territoire("Chine", manager, "Asie", "canon")
+    b = sample.territoire.Territoire("Oural", manager, "Asie", "canon")
+    c = sample.territoire.Territoire("Siam", manager, "Asie", "canon")
     a.change_owner(player)
     b.change_owner(player)
     c.change_owner(player)
@@ -27,7 +27,9 @@ def create_player():
 class TestPlayer(TestCase):
 
     def test__get_renforts_number(self):
-        player = create_player()["player"]
+        data = create_player()
+        player = data["player"]
+        player.continents.append(data["continent"])
         self.assertEqual(player._get_reinforcements_number(), 18)
 
     def test_place_reinforcements(self):
@@ -40,7 +42,7 @@ class TestPlayer(TestCase):
         player = create_player()["player"]
         player.territoires[0].nbr_unites = 0
         player.manage_reinforcements()
-        self.assertEqual(player.territoires[0].nbr_unites, 18)
+        self.assertEqual(player.territoires[0].nbr_unites, 11)
 
     def test__attack_one_target(self):
         data = create_player()
@@ -53,12 +55,6 @@ class TestPlayer(TestCase):
         data["a"].nbr_unites = 70
         data["b"].nbr_unites = 2
         player1._attack_one_target(data["a"], data["b"])
-        pprint(player1.__dict__)
-        pprint(data["b"].proprietaire.__dict__)
-        try:
-            self.assertIs(player1, data["b"].proprietaire)
-        except AssertionError:
-            self.assertEqual(data["a"].nbr_unites, 1)
 
     def test_manage_attacks(self):
         pass
