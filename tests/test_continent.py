@@ -1,20 +1,20 @@
 from unittest import TestCase
 import sample.continent
-import sample.plateau
 import sample.territoire
 import sample.player
+import engine.game_manager as gm
 
 
 class TestContinent(TestCase):
 
     def test_get_master(self):
-        plateau = sample.plateau.Plateau()
-        continent = sample.continent.Continent("Asie", 7, plateau)
+        manager = gm.GameManager()
+        continent = sample.continent.Continent("Asie", 7, manager)
         continent.territoires = (
-            sample.territoire.Territoire("Chine", plateau, continent, "rien"),
-            sample.territoire.Territoire("Oural", plateau, continent, "rien")
+            sample.territoire.Territoire("Chine", manager, continent, "rien"),
+            sample.territoire.Territoire("Oural", manager, continent, "rien")
         )
-        player = sample.player.Player(plateau)
+        player = sample.player.Player(manager)
         for territoire in continent.territoires:
             territoire.proprietaire = player
         assert continent.get_master() is player
