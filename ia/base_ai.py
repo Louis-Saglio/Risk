@@ -32,3 +32,6 @@ class AI:
 
     def choose_dice_number(self, attacker: trt.Territoire, defender: trt.Territoire, role: str) -> int:
         raise NotImplementedError
+
+    def choose_troop_transfer(self) -> dict:
+        raise NotImplementedError
