@@ -1,6 +1,6 @@
 class Continent:
 
-    def __init__(self, nom, renforts: int, manager, territoires: tuple=()):
+    def __init__(self, nom: str, renforts: int, manager, territoires: tuple=()):
         self.nom = nom
         self.territoires = territoires  # type: tuple[sample.territoire.Territoire]
         self.renforts = renforts
@@ -10,8 +10,8 @@ class Continent:
         self.owner = self.get_master()
 
     def __str__(self):
-        # return f"{self.nom} {id(self.plateau)}"
-        return str(self.__dict__)
+        return f"{self.nom} {id(self.manager)}"
+        # return str(self.__dict__)
 
     def __repr__(self):
         return self.__str__()
