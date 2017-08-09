@@ -1,4 +1,5 @@
-import ia.randomAI
+from typing import Type
+import ia.base_ai
 import data
 import sample.territoire as trt
 import sample.armee as arm
@@ -17,12 +18,13 @@ class Player:
     Ne doit pas contenir de prise de décision (AI)
     """
 
-    def __init__(self, manager: gm.GameManager):
-        self.territoires = []
-        self.cards = []
-        self.ai = ia.randomAI.RandomAi(self)
+    def __init__(self, manager: gm.GameManager, ai: Type[ia.base_ai.AI]=None):
         self.manager = manager
+        self.territoires = []
         self.continents = []
+        self.cards = []
+        if ai is not None:
+            self.ai = ai(self)
 
     def __get_continent_reinforcements(self) -> int:
         return sum([continent.renforts for continent in self.continents])
@@ -53,14 +55,14 @@ class Player:
     def draw_a_card(self):
         self.cards.append(self.manager.give_a_card())
 
-    def _attack_one_target(self, attacker: trt.Territoire, defender: trt.Territoire):
+    @staticmethod
+    def _attack_one_target(attacker: trt.Territoire, defender: trt.Territoire):
         attacker.former_armee()
         defender.former_armee()
         attacker.armee.territoire = attacker
         defender.armee.territoire = defender
         attacker.armee.initialise_attaque(defender.armee)
-        attacker.armee.check_if_continue_attack = self.ai.choose_continue_attack
-        return attacker.armee.envahir(defender.armee)
+        attacker.armee.envahir(defender.armee)
 
     @staticmethod
     def _end_attack(attacker: trt.Territoire, defender: trt.Territoire):
@@ -68,7 +70,6 @@ class Player:
         defender.nbr_unites = defender.armee.nbr
         if defender.armee.statut is PERDANT:
             defender.change_owner(attacker.proprietaire)
-            attacker.transfer_troops_to(defender, attacker.armee._nbr_des)
 
     def manage_attacks(self):
         nbr_trt = len(self.territoires)
@@ -81,6 +82,11 @@ class Player:
         if len(self.territoires) - nbr_trt > 0:
             self.draw_a_card()
 
+    def manage_troop_transfers(self):
+        ai_data = self.ai.choose_troop_transfer()
+        ai_data["from_trt"].transfer_troops_to(ai_data["to_trt"], ai_data["nbr_units"])
+
     def play(self):
         self.manage_reinforcements()
         self.manage_attacks()
+        self.manage_troop_transfers()
