@@ -12,7 +12,7 @@ class GameManager:
         self.continents = []
 
     def give_a_card(self):
-        raise NotImplementedError
+        return NotImplementedError
 
     def find_continent_by_name(self, name):
         if isinstance(name, sample.continent.Continent):
