@@ -22,7 +22,7 @@ class Armee:
         :type des tuple
         :type role str
         """
-        self.nbr_initial = nbr
+        self._nbr_initial = nbr
         self.nbr = nbr
         self.ennemi = ennemi
         self._des = des
@@ -122,7 +122,7 @@ class Armee:
         while not (self._statut and self.ennemi._statut):
             self.attaquer()
             if afficher:
-                if i % (int(self.nbr_initial / 20)) == 0 or GAGNANT in (self.statut, self.ennemi.statut):
+                if i % (int(self._nbr_initial / 20)) == 0 or GAGNANT in (self.statut, self.ennemi.statut):
                     system("clear")
                     self.afficher_avancement()
                     self.ennemi.afficher_avancement()
@@ -132,7 +132,7 @@ class Armee:
         return {self._statut: self, ennemi._statut: ennemi}
 
     def afficher_avancement(self):
-        pct = int((self.nbr * 100) / self.nbr_initial)
+        pct = int((self.nbr * 100) / self._nbr_initial)
         print(('|' * pct).ljust(100), pct, '%')
 
 
