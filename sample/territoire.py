@@ -56,7 +56,8 @@ class Territoire:
         to.nbr_unites += nbr
 
     def __str__(self):
-        return str(self.__dict__)
+        return str(self.nom) + str(id(self))
+        # return str(self.__dict__)
 
     def __repr__(self):
         return self.__str__()
