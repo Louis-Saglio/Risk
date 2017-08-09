@@ -7,6 +7,9 @@ import sample.armee as arm
 
 class IaForTest(ia.base_ai.AI):
 
+    def choose_troop_transfer(self):
+        return {"from_trt": self.player.territoires[0], "to_trt": self.player.territoires[0].voisins[0], "nbr_units": 1}
+
     def choose_continue_attack(self, attacker: arm.Armee, defender: arm.Armee) -> bool:
         if defender.territoire.proprietaire is self.player:
             return False
@@ -16,9 +19,14 @@ class IaForTest(ia.base_ai.AI):
         return 2
 
     def choose_target(self) -> dict:
+        # print("choix d'une cible pour", self.player)
         for territoire in self.player.territoires:
+            # print("\trecherche d'une cible pour le territoire :", territoire)
             for voisin in territoire.voisins:
-                if voisin.proprietaire is not self.player and voisin.nbr_unites > 1:
+                # print("\t\tanalyse de", voisin)
+                # print("\t\t\tpropriétaire", voisin.proprietaire)
+                # print("\t\t\tNombre d'unités:", territoire.nbr_unites)
+                if voisin.proprietaire is not self.player and territoire.nbr_unites > 1:
                     return {"attacker": territoire, "defender": voisin}
 
     def choose_attacker_number(self, attacker: trt.Territoire, defender: trt.Territoire):
