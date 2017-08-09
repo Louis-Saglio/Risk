@@ -2,7 +2,7 @@ from unittest import TestCase
 
 import engine.game_manager as gm
 import sample.continent
-from territoire import Territoire
+from sample.territoire import Territoire
 
 
 class TestTerritoire(TestCase):
