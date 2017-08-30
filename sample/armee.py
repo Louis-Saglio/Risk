@@ -31,6 +31,7 @@ class Armee:
         self._nbr_morts = None
         self._nbr_des = None
         self._statut = None
+        # todo: change_territoire()
         self.territoire = None
 
     @property
