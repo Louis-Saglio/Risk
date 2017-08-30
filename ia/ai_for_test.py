@@ -19,13 +19,8 @@ class IaForTest(ia.base_ai.AI):
         return 2
 
     def choose_target(self) -> dict:
-        # print("choix d'une cible pour", self.player)
         for territoire in self.player.territoires:
-            # print("\trecherche d'une cible pour le territoire :", territoire)
             for voisin in territoire.voisins:
-                # print("\t\tanalyse de", voisin)
-                # print("\t\t\tpropriétaire", voisin.proprietaire)
-                # print("\t\t\tNombre d'unités:", territoire.nbr_unites)
                 if voisin.proprietaire is not self.player and territoire.nbr_unites > 1:
                     return {"attacker": territoire, "defender": voisin}
 
