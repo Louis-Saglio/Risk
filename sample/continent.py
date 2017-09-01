@@ -2,7 +2,7 @@ class Continent:
 
     def __init__(self, nom: str, renforts: int, manager, territoires: tuple=()):
         self.nom = nom
-        self.territoires = territoires  # type: tuple[sample.territoire.Territoire]
+        self.territoires = list(territoires)  # type: list[sample.territoire.Territoire]
         self.renforts = renforts
         self.manager = manager
         self.manager.continents.append(self)
@@ -40,3 +40,13 @@ class Continent:
 
     def manage_owner(self):
         self.change_owner(self.get_master())
+
+    def change_manager(self, new_manager):
+        """
+        :type new_manager: game_manager.GameManager
+        """
+        # todo: improve, remove
+        if self.manager is not None:
+            self.manager.continents.remove(self)
+        self.manager = new_manager
+        self.manager.continents.append(self)
