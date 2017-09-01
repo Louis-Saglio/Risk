@@ -9,16 +9,16 @@ class TerritoireError(BaseException):
 
 class Territoire:
 
-    def __init__(self, nom, manager, continent, icone):
-        # TODO: changer les tuples en list
-        self.manager = manager
+    def __init__(self, nom, continent=None, manager=None, icone=None):
+        """
+        :type manager: game_manager.GameManager
+        """
         self.nom = nom
         self.icone = icone
-        self.continent = self.manager.find_continent_by_name(continent)
-        self.continent.territoires += self,
+        self.voisins = []
+        self.continent = self.change_continent(continent, manager)  # todo: remove_territoire()
         self.proprietaire = None  # :type sample.player.Player
         self.nbr_unites = 0
-        self.voisins = ()
         self.armee = None
         self.check_attr()
 
@@ -30,10 +30,11 @@ class Territoire:
         """
         :type other: Territoire
         """
-        self.voisins += other,
-        other.voisins += self,
+        self.voisins.append(other)
+        other.voisins.append(self)
 
     def former_armee(self, nbr=None) -> sample.armee.Armee:
+        # todo: relocaliser dans checker
         if nbr is None:
             nbr = self.nbr_unites
         elif nbr > self.nbr_unites:
@@ -42,7 +43,7 @@ class Territoire:
         return self.armee
 
     def change_owner(self, new_owner):
-        if self.proprietaire is not None:
+        if hasattr(self, "proprietaire") and self.proprietaire is not None:
             self.proprietaire.territoires.remove(self)
         self.proprietaire = new_owner
         new_owner.territoires.append(self)
@@ -54,6 +55,20 @@ class Territoire:
         """
         self.nbr_unites -= nbr
         to.nbr_unites += nbr
+
+    def change_continent(self, new_continent, manager=None):
+        if hasattr(self, "continent"):
+            self.continent.territoires.remove(self)
+        if isinstance(manager, gm.GameManager):
+            self.continent = manager.find_item_from_field_list_by_field("continents", new_continent, "nom")
+        elif isinstance(new_continent, sample.continent.Continent):
+            self.continent = new_continent
+        else:
+            raise TerritoireError(f"Vous devez spécifier un continent de type Continent ou un continent de type str et "
+                                  f"un manager de type GameManager\nReçu :\n\tContinent : {type(new_continent)}"
+                                  f"\n\tManager : {type(manager)}")
+        self.continent.territoires.append(self)
+        return self.continent
 
     def __str__(self):
         return str(self.nom) + str(id(self))
