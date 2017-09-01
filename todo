@@ -7,3 +7,21 @@ X   standardiser les __init__
     angliciser les noms
     docstring base_ai
     relocaliser les staticmethodes
+    main
+    missions
+
+
+
+Méthode d'ajout de suppression et de changement d'une classe fille dans un attribut liste d'une classe mere
+Find item of list attribut by attribut or instance
+Ajouter/supprimer une classe fille (objet helper hérité)
+
+On verifie si la classe mere est compatible
+Si il y a déjà une classe mere
+    on supprime de la classe mere
+on ajoute le classe mere
+on ajoute à la classe mere
+
+create : str ou type ?
+add/remove/change fille ou add/remove/change mere ?
+chaque classe la plus indépendante possible
