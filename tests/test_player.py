@@ -7,16 +7,25 @@ from pprint import pprint
 import engine.game_manager as gm
 import sample.armee as arm
 import ia.ai_for_test as ai
+import missions.base_mission as msn
 
 
 def create_data():
     manager = gm.GameManager()
-    player = sample.player.Player(manager, ai.IaForTest)
+    card_sets = {
+        ("fantassin", "cavalier", "canon"): 10,
+        ("fantassin", "fantassin", "fantassin"): 4,
+        ("cavalier", "cavalier", "cavalier"): 6,
+        ("canon", "canon", "canon"): 8,
+    }
+    manager.card_sets = card_sets
+    player = sample.player.Player(manager, ai.IaForTest, "red", msn.BaseMission)
     player2 = sample.player.Player(manager, ai.IaForTest)
     continent = sample.continent.Continent("Asie", 7, manager)
-    a = sample.territoire.Territoire("Chine", manager, "Asie", "canon")
-    b = sample.territoire.Territoire("Oural", manager, "Asie", "canon")
-    c = sample.territoire.Territoire("Siam", manager, "Asie", "canon")
+    a = sample.territoire.Territoire("Chine", "Asie", manager, "canon")
+    b = sample.territoire.Territoire("Oural", "Asie", manager, "canon")
+    c = sample.territoire.Territoire("Siam", "Asie", manager, "canon")
+    a.link_with(b)
     a.change_owner(player)
     b.change_owner(player)
     c.change_owner(player)
@@ -81,4 +90,5 @@ class TestPlayer(TestCase):
         self.assertEqual(data["b"].nbr_unites, 2)
 
     def test_play(self):
-        pass
+        player = create_data()["player"]
+        self.assertRaises(NotImplementedError, lambda: player.play())

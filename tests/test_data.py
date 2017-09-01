@@ -32,13 +32,12 @@ class TestData(unittest.TestCase):
     def test_create_object_from_data(self):
         create_objects_from_data(CONTINENTS1, sample.continent.Continent)
         objects = create_objects_from_data(TERRITOIRES, sample.territoire.Territoire)
-        created = {'manager': MANAGER,
-                   'nom': 'Ukraine',
+        created = {'nom': 'Ukraine',
                    'icone': 'cavalier',
                    'continent': europe,
                    'proprietaire': None,
                    'nbr_unites': 0,
-                   'voisins': (),
+                   'voisins': [],
                    'armee': None}
         self.assertEqual(objects[4].__dict__, created)
 

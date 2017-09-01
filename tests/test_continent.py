@@ -11,8 +11,8 @@ class TestContinent(TestCase):
         manager = gm.GameManager()
         continent = sample.continent.Continent("Asie", 7, manager)
         continent.territoires = (
-            sample.territoire.Territoire("Chine", manager, continent, "rien"),
-            sample.territoire.Territoire("Oural", manager, continent, "rien")
+            sample.territoire.Territoire("Chine", continent, manager, "rien"),
+            sample.territoire.Territoire("Oural", continent, manager, "rien")
         )
         player = sample.player.Player(manager)
         for territoire in continent.territoires:

@@ -7,8 +7,8 @@ import engine.game_manager as gm
 def create_data():
     manager = gm.GameManager()
     continent = ctn.Continent("Asie", 7, manager)
-    chine = trt.Territoire("chine", manager, continent, "cavalier")
-    oural = trt.Territoire("oural", manager, continent, "canon")
+    chine = trt.Territoire("chine", continent, manager, "cavalier")
+    oural = trt.Territoire("oural", continent, manager, "canon")
     return locals()
 
 class TestTerritoire(TestCase):
@@ -34,3 +34,9 @@ class TestTerritoire(TestCase):
         data["chine"].transfer_troops_to(data["oural"], 5)
         self.assertEqual(data["chine"].nbr_unites, 2)
         self.assertEqual(data["oural"].nbr_unites, 6)
+
+    def test_change_continent(self):
+        data = create_data()
+        siam = trt.Territoire("Siam", continent=data["continent"])
+        self.assertIs(siam.continent, data["continent"])
+        self.assertIn(siam, data["continent"].territoires)
