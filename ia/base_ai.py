@@ -16,7 +16,7 @@ class AI:
         # todo: manage_player()
         self.player = player
 
-    def choose_card_set(self) -> tuple:
+    def choose_card_set(self) -> [tuple, None]:
         raise NotImplementedError
 
     def choose_reinforcements_placement(self, reinforcements_number: int) -> dict:
