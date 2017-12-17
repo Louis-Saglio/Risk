@@ -43,7 +43,12 @@ class Player:
         return number if number >= 3 else 3
 
     def __get_card_set_reinforcements(self) -> int:
-        return self.manager.card_sets.get(self.ai.choose_card_set()) or 0
+        # todo: ajouter deux sur chaque territoire
+        cards = self.ai.choose_card_set()
+        if cards is None:
+            return 0
+        print(cards)
+        return self.manager.card_sets.get(tuple([icone for icone in cards])) or 0
 
     def _get_reinforcements_number(self) -> int:
         reinforcements = (
