@@ -34,6 +34,7 @@ class IaForTest(ia.base_ai.AI):
         if len(self.player.cards) < 3:
             return None
         for _ in range(20):
-            card_set = tuple(random.sample([territoire.icone for territoire in self.player.territoires], 3))
+            card_set = tuple(random.sample(self.player.territoires, 3))
+            print(card_set)
             if card_set in data.data_content.CARD_SETS:
                 return card_set
